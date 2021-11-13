@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import withRouter from '../hocs/withRouter';
 
 // Styles
 import './directory.styles.scss';
@@ -59,4 +60,4 @@ class Directory extends Component {
 	}
 }
 
-export default Directory;
+export default withRouter(Directory);
