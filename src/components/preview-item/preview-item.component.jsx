@@ -17,4 +17,6 @@ const PreviewItem = ({ name, price, imageUrl }) => {
 	);
 };
 
-export default PreviewItem;
+export default React.memo(PreviewItem, (prevProps, nextProps) => {
+	return prevProps.id === nextProps.id;
+});
