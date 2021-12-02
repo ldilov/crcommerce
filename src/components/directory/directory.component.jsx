@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import './directory.styles.scss';
+
+import { Component } from 'react';
+
+import MenuItem from '../../components/menu-item/menu-item.component';
 import withRouter from '../hocs/withRouter';
 
 // Styles
-import './directory.styles.scss';
-
 // Components
-import MenuItem from '../../components/menu-item/menu-item.component';
-
 class Directory extends Component {
 	constructor() {
 		super();

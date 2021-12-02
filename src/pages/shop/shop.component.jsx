@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 // Dummy data
 import SHOP_DATA from '../../data/dummy/shop.data';

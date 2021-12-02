@@ -1,7 +1,6 @@
 /* eslint-disable react/display-name */
-
-import React from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+
 
 function withRouter(Child) {
 	return (props) => {

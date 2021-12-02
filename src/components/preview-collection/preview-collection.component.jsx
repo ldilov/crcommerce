@@ -1,6 +1,6 @@
-import React, { useMemo } from 'react';
-
 import './preview-collection.styles.scss';
+
+import { useMemo } from 'react';
 
 import PreviewItem from '../preview-item/preview-item.component';
 
