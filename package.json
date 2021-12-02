@@ -35,9 +35,10 @@
 	"scripts": {
 		"start": "react-scripts start",
 		"build": "react-scripts build",
-		"winBuild": "set \"GENERATE_SOURCEMAP=false\" && npm audit --production && react-scripts build && compress-cra",
+		"winBuild": "set \"GENERATE_SOURCEMAP=false\" && eslint src --ext jsx js && npm audit --production && react-scripts build && compress-cra",
 		"test": "react-scripts test",
-		"eject": "react-scripts eject"
+		"eject": "react-scripts eject",
+		"lint": "eslint src --ext jsx js"
 	},
 	"eslintConfig": {
 		"extends": [
