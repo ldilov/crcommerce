@@ -61,23 +61,25 @@ class SignIn extends Component {
 						handleChange={this.handleChange}
 						required
 					/>
-					<CustomButton type='submit'>Submit Form</CustomButton>
-					<CustomButton
-						onClick={this.handleGoogleSignIn}
-						isGoogleSignIn={true}
-					>
-						<IconContext.Provider
-							value={{
-								style: {
-									verticalAlign: 'middle',
-									marginRight: 5,
-									transform: 'scale3d(1.5, 1.5, 1.5)',
-								},
-							}}
+					<div className='buttons'>
+						<CustomButton type='submit'>Submit Form</CustomButton>
+						<CustomButton
+							onClick={this.handleGoogleSignIn}
+							isGoogleSignIn={true}
 						>
-							<FcGoogle /> Sign in with Google
-						</IconContext.Provider>
-					</CustomButton>
+							<IconContext.Provider
+								value={{
+									style: {
+										verticalAlign: 'middle',
+										marginRight: 5,
+										transform: 'scale3d(1.5, 1.5, 1.5)',
+									},
+								}}
+							>
+								<FcGoogle /> Sign in with Google
+							</IconContext.Provider>
+						</CustomButton>
+					</div>
 				</form>
 			</div>
 		);
