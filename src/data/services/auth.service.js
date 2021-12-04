@@ -3,6 +3,7 @@ import FirebaseCreateAuthUserError from '../errors/firebase-create-auth-user-err
 import {
 	onAuthStateChange,
 	signInWithGoogle,
+	signInWithCredentials,
 	auth,
 	createUserWithCredentials,
 } from '../firebase/auth';
@@ -10,11 +11,13 @@ import {
 class AuthService {
 	#onAuthStateChange;
 	#signInWithGoogle;
+	#signInWithCreds;
 	#authStateSubscription;
 
 	constructor() {
 		this.#onAuthStateChange = onAuthStateChange;
 		this.#signInWithGoogle = signInWithGoogle;
+		this.#signInWithCreds = signInWithCredentials;
 		this.#authStateSubscription = null;
 
 		this.providers = {
@@ -38,16 +41,24 @@ class AuthService {
 		return result;
 	}
 
-	signIn(strategy) {
+	signIn(strategy, credentials = null) {
 		let signInMethod = null;
 
 		switch (strategy) {
 			case this.providers.GOOGLE:
 				signInMethod = this.#signInWithGoogle;
 				break;
+			case this.providers.STANDARD:
+				signInMethod = this.#signInWithCreds;
+				break;
 			default:
 				signInMethod = () => {};
 				break;
+		}
+
+		if (credentials) {
+			const { email, password } = credentials;
+			return signInMethod(email, password);
 		}
 
 		return signInMethod();

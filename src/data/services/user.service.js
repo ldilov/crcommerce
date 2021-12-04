@@ -1,6 +1,8 @@
 import AuthUserDbDTO from '../dtos/auth-db-user.dto';
 import GetUserDTO from '../dtos/get-user.dto';
+
 import ServiceCreateUserError from '../errors/service-create-user-error';
+
 import {
 	getAllUsers,
 	getUserByDocId,

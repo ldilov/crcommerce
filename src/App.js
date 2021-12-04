@@ -17,9 +17,6 @@ const SignInSignUpPage = lazy(() =>
 	import('./pages/signin-and-signup/signin-and-signup.component')
 );
 
-// Errors
-import ServiceCreateUserError from './data/errors/service-create-user-error';
-
 class App extends Component {
 	constructor(props) {
 		super(props);
@@ -33,11 +30,10 @@ class App extends Component {
 		try {
 			await UserService.saveAuthUser(payload.currentUser);
 		} catch (error) {
-			if (error instanceof ServiceCreateUserError) {
-				console.log('User already registered');
+			if (error.innerError.snapshot) {
+				payload = { currentUser: error.innerError.snapshot.data() };
 			}
 		}
-
 		this.setState(payload);
 	};
 

@@ -64,7 +64,8 @@ export const createUserDocument = async (authUser) => {
 	if (userSnapshot.exists()) {
 		throw new FirebaseUserDocumentAlreadyExists(
 			`User with id ${authUser.uid} already exists!`,
-			authUser.uid
+			authUser.uid,
+			userSnapshot
 		);
 	}
 

@@ -17,14 +17,29 @@ class SignIn extends Component {
 	constructor(props) {
 		super(props);
 
+		this.notificationHandler = props.notify;
+
 		this.state = {
 			email: '',
 			password: '',
 		};
 	}
 
-	handleSubmit = (event) => {
+	handleSubmit = async (event) => {
 		event.preventDefault();
+
+		const { email, password } = this.state;
+
+		try {
+			await AuthService.signIn(AuthService.providers.STANDARD, {
+				email,
+				password,
+			});
+			this.notificationHandler(`Successfully logged in!`, 'success');
+		} catch (error) {
+			this.notificationHandler(`Failed to sign in!`, 'error');
+		}
+
 		this.setState({ email: '', password: '' });
 	};
 
