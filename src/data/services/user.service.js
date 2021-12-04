@@ -1,5 +1,6 @@
 import AuthUserDbDTO from '../dtos/auth-db-user.dto';
 import GetUserDTO from '../dtos/get-user.dto';
+import ServiceCreateUserError from '../errors/service-create-user-error';
 import {
 	getAllUsers,
 	getUserByDocId,
@@ -65,7 +66,7 @@ class UserService {
 		try {
 			await setDoc(userRef, JSON.parse(JSON.stringify(dbUser)));
 		} catch (error) {
-			throw new Error(`Unable to create user:\n${error}`);
+			throw new ServiceCreateUserError(error, `Unable to create user!`);
 		}
 	}
 }

@@ -1,8 +1,9 @@
 class FirebaseUserDocumentAlreadyExists extends Error {
-	constructor(...args) {
-		super(...args);
+	constructor(message, uid) {
+		super(message);
 
-		this.userDocId = args[1];
+		this.name = FirebaseUserDocumentAlreadyExists.name;
+		this.userDocId = uid;
 
 		Error.captureStackTrace(this, FirebaseUserDocumentAlreadyExists);
 	}
