@@ -1,7 +1,15 @@
 import { Component } from 'react';
+
+// Components
+import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 
-import FormInput from '../form-input/form-input.component';
+// Icons
+import { FcGoogle } from 'react-icons/fc';
+import { IconContext } from 'react-icons';
+
+// Services
+import AuthService from '../../data/services/auth.service';
 
 import './sign-in.styles.scss';
 
@@ -17,14 +25,16 @@ class SignIn extends Component {
 
 	handleSubmit = (event) => {
 		event.preventDefault();
-
 		this.setState({ email: '', password: '' });
 	};
 
 	handleChange = (event) => {
 		const { value, name } = event.target;
-
 		this.setState({ [name]: value });
+	};
+
+	handleGoogleSignIn = () => {
+		AuthService.signIn(AuthService.providers.GOOGLE);
 	};
 
 	render() {
@@ -51,8 +61,22 @@ class SignIn extends Component {
 						handleChange={this.handleChange}
 						required
 					/>
-					<CustomButton type='submit'>
-						Submit Form
+					<CustomButton type='submit'>Submit Form</CustomButton>
+					<CustomButton
+						onClick={this.handleGoogleSignIn}
+						isGoogleSignIn={true}
+					>
+						<IconContext.Provider
+							value={{
+								style: {
+									verticalAlign: 'middle',
+									marginRight: 5,
+									transform: 'scale3d(1.5, 1.5, 1.5)',
+								},
+							}}
+						>
+							<FcGoogle /> Sign in with Google
+						</IconContext.Provider>
 					</CustomButton>
 				</form>
 			</div>

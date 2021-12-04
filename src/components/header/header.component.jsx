@@ -3,25 +3,21 @@ import { Link } from 'react-router-dom';
 
 import './header.styles.scss';
 
-const Header = () => {
+// Components
+import NavbarButton from '../navbar-button/navbar-button.component';
+
+const Header = ({ currentUser }) => {
 	return (
 		<div className='header'>
 			<Link className='logo-container' to='/'></Link>
 			<div className='options'>
-				<Link to='/shop' className='option'>
-					<span className='text'>SHOP</span>
-					<span className='line -right'></span>
-					<span className='line -top'></span>
-					<span className='line -left'></span>
-					<span className='line -bottom'></span>
-				</Link>
-				<Link to='/shop' className='option'>
-					<span className='text'>CONTACT</span>
-					<span className='line -right'></span>
-					<span className='line -top'></span>
-					<span className='line -left'></span>
-					<span className='line -bottom'></span>
-				</Link>
+				<NavbarButton name='shop' uri='shop' />
+				<NavbarButton name='contact' uri='contact' />
+				{currentUser ? (
+					<NavbarButton name='sign out' uri='signout' />
+				) : (
+					<NavbarButton name='sign in' uri='signin' />
+				)}
 			</div>
 		</div>
 	);
