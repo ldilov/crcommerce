@@ -53,8 +53,15 @@ class UserService {
 		return result;
 	}
 
-	async saveAuthUser(authUser) {
+	async saveAuthUser(authUser, additionalData = null) {
 		let result = null;
+
+		if (additionalData) {
+			authUser = {
+				...authUser,
+				...additionalData,
+			};
+		}
 
 		try {
 			result = await createUserDocument(authUser);
@@ -75,7 +82,10 @@ class UserService {
 		try {
 			await setDoc(userRef, JSON.parse(JSON.stringify(dbUser)));
 		} catch (error) {
-			throw new ServiceCreateUserError(error, `Unable to create user!`);
+			throw new ServiceCreateUserError(
+				error,
+				`Unable to create user in the database!`
+			);
 		}
 	}
 }

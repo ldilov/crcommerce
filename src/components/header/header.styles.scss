@@ -18,4 +18,15 @@
         align-items: center;
         justify-content: flex-end;
     }
+
+    @media screen and (max-width: 640px) {
+        & {
+            justify-content: center;
+            width: 95vw;
+
+            .options {
+                width: 100%;
+            }
+        }
+    }
 }
