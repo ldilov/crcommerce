@@ -7,6 +7,7 @@ import Header from './components/header/header.component';
 
 // Services
 import AuthService from './data/services/auth.service';
+import UserService from './data/services/user.service';
 
 // Lazy loaded components
 const HomePage = lazy(() => import('./pages/homepage/homepage.component'));
@@ -26,6 +27,7 @@ class App extends Component {
 	}
 
 	handleSetCurrentUser = (payload) => {
+		UserService.saveAuthUser(payload.currentUser);
 		this.setState(payload);
 	};
 

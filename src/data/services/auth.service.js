@@ -1,4 +1,4 @@
-import UserDTO from '../dtos/user.dto';
+import AuthUserDTO from '../dtos/auth-user.dto';
 import { onAuthStateChange, signInWithGoogle, auth } from '../firebase/auth';
 
 class AuthService {
@@ -40,7 +40,7 @@ class AuthService {
 
 	setAuthHandler(stateSetter) {
 		this.#authStateSubscription = this.#onAuthStateChange(auth, (user) => {
-			stateSetter({ currentUser: user ? new UserDTO(user) : null });
+			stateSetter({ currentUser: user ? new AuthUserDTO(user) : null });
 		});
 	}
 
