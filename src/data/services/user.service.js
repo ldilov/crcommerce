@@ -54,7 +54,16 @@ class UserService {
 	}
 
 	async saveAuthUser(authUser) {
-		const result = await createUserDocument(authUser);
+		let result = null;
+
+		try {
+			result = await createUserDocument(authUser);
+		} catch (error) {
+			throw new ServiceCreateUserError(
+				error,
+				`Unable to create user document!`
+			);
+		}
 
 		if (!result) {
 			return;
