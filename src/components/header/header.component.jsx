@@ -7,6 +7,7 @@ import './header.styles.scss';
 
 // Components
 import NavbarButton from '../navbar-button/navbar-button.component';
+import CartIcon from '../cart-icon/cart-icon.component';
 
 const Header = ({ currentUser }) => {
 	return (
@@ -20,6 +21,7 @@ const Header = ({ currentUser }) => {
 				) : (
 					<NavbarButton name='sign in' uri='signin' />
 				)}
+				<CartIcon />
 			</div>
 		</div>
 	);
