@@ -2,8 +2,12 @@ import './App.css';
 
 import { Component, lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import Header from './components/header/header.component';
+
+// Actions
+import { setCurrentUser } from './redux/user/user.actions';
 
 // Services
 import AuthService from './data/services/auth.service';
@@ -18,23 +22,18 @@ const SignInSignUpPage = lazy(() =>
 );
 
 class App extends Component {
-	constructor(props) {
-		super(props);
-
-		this.state = {
-			currentUser: null,
-		};
-	}
-
 	handleSetCurrentUser = async (payload) => {
+		let user = payload.currentUser;
+
 		try {
-			await UserService.saveAuthUser(payload.currentUser);
+			await UserService.saveAuthUser(user);
 		} catch (error) {
 			if (error.innerError.snapshot) {
-				payload = { currentUser: error.innerError.snapshot.data() };
+				user = error.innerError.snapshot.data();
 			}
 		}
-		this.setState(payload);
+
+		this.props.setCurrentUser(user);
 	};
 
 	componentWillUnmount() {
@@ -48,7 +47,7 @@ class App extends Component {
 	render() {
 		return (
 			<div className='App'>
-				<Header currentUser={this.state.currentUser} />
+				<Header />
 				<Routes>
 					<Route
 						exact
@@ -92,4 +91,8 @@ class App extends Component {
 	}
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => ({
+	setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+});
+
+export default connect(null, mapDispatchToProps)(App);

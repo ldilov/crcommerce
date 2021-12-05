@@ -1,15 +1,12 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import LayeredProvider from './providers/layered-provider.provider';
 
 import './index.css';
 import App from './App';
 
 ReactDOM.render(
-	<React.StrictMode>
-		<BrowserRouter>
-			<App />
-		</BrowserRouter>
-	</React.StrictMode>,
+	<LayeredProvider>
+		<App />
+	</LayeredProvider>,
 	document.getElementById('root')
 );
