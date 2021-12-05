@@ -1,7 +1,7 @@
 import './App.css';
 
 import { Component, lazy, Suspense } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Header from './components/header/header.component';
@@ -72,7 +72,11 @@ class App extends Component {
 						path='/signin'
 						element={
 							<Suspense fallback={<div>Loading...</div>}>
-								<SignInSignUpPage />
+								{this.props.currentUser ? (
+									<Navigate to='/' />
+								) : (
+									<SignInSignUpPage />
+								)}
 							</Suspense>
 						}
 					/>
@@ -91,8 +95,12 @@ class App extends Component {
 	}
 }
 
+const mapStateToProps = ({ user }) => ({
+	currentUser: user.currentUser,
+});
+
 const mapDispatchToProps = (dispatch) => ({
 	setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
