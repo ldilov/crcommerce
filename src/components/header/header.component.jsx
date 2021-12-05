@@ -8,8 +8,9 @@ import './header.styles.scss';
 // Components
 import NavbarButton from '../navbar-button/navbar-button.component';
 import CartIcon from '../cart-icon/cart-icon.component';
+import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 
-const Header = ({ currentUser }) => {
+const Header = ({ currentUser, isCartHidden }) => {
 	return (
 		<div className='header'>
 			<Link className='logo-container' to='/'></Link>
@@ -23,6 +24,8 @@ const Header = ({ currentUser }) => {
 				)}
 				<CartIcon />
 			</div>
+
+			{isCartHidden ? null : <CartDropdown />}
 		</div>
 	);
 };
@@ -30,6 +33,7 @@ const Header = ({ currentUser }) => {
 const mapStateToProps = (state) => {
 	return {
 		currentUser: state.user.currentUser,
+		isCartHidden: state.cart.hidden,
 	};
 };
 
