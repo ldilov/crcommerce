@@ -5,8 +5,8 @@ import './index.css';
 import App from './App';
 
 ReactDOM.render(
-	<LayeredProvider>
-		<App />
-	</LayeredProvider>,
-	document.getElementById('root')
+  <LayeredProvider>
+    <App />
+  </LayeredProvider>,
+  document.getElementById('root')
 );

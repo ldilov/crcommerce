@@ -18,89 +18,89 @@ const HomePage = lazy(() => import('./pages/homepage/homepage.component'));
 const ShopPage = lazy(() => import('./pages/shop/shop.component'));
 const SignOutPage = lazy(() => import('./pages/signout/signout.component'));
 const SignInSignUpPage = lazy(() =>
-	import('./pages/signin-and-signup/signin-and-signup.component')
+  import('./pages/signin-and-signup/signin-and-signup.component')
 );
 
 class App extends Component {
-	handleSetCurrentUser = async (payload) => {
-		let user = payload.currentUser;
+  handleSetCurrentUser = async (payload) => {
+    let user = payload.currentUser;
 
-		try {
-			await UserService.saveAuthUser(user);
-		} catch (error) {
-			if (error.innerError.snapshot) {
-				user = error.innerError.snapshot.data();
-			}
-		}
+    try {
+      await UserService.saveAuthUser(user);
+    } catch (error) {
+      if (error.innerError.snapshot) {
+        user = error.innerError.snapshot.data();
+      }
+    }
 
-		this.props.setCurrentUser(user);
-	};
+    this.props.setCurrentUser(user);
+  };
 
-	componentWillUnmount() {
-		AuthService.destroyAuthHandler();
-	}
+  componentWillUnmount() {
+    AuthService.destroyAuthHandler();
+  }
 
-	componentDidMount() {
-		AuthService.setAuthHandler(this.handleSetCurrentUser);
-	}
+  componentDidMount() {
+    AuthService.setAuthHandler(this.handleSetCurrentUser);
+  }
 
-	render() {
-		return (
-			<div className='App'>
-				<Header />
-				<Routes>
-					<Route
-						exact
-						path='/'
-						element={
-							<Suspense fallback={<div>Loading...</div>}>
-								<HomePage />
-							</Suspense>
-						}
-					/>
-					<Route
-						exact
-						path='/shop'
-						element={
-							<Suspense fallback={<div>Loading...</div>}>
-								<ShopPage />
-							</Suspense>
-						}
-					/>
-					<Route
-						exact
-						path='/signin'
-						element={
-							<Suspense fallback={<div>Loading...</div>}>
-								{this.props.currentUser ? (
-									<Navigate to='/' />
-								) : (
-									<SignInSignUpPage />
-								)}
-							</Suspense>
-						}
-					/>
-					<Route
-						exact
-						path='/signout'
-						element={
-							<Suspense fallback={<div>Loading...</div>}>
-								<SignOutPage />
-							</Suspense>
-						}
-					/>
-				</Routes>
-			</div>
-		);
-	}
+  render() {
+    return (
+      <div className='App'>
+        <Header />
+        <Routes>
+          <Route
+            exact
+            path='/'
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <HomePage />
+              </Suspense>
+            }
+          />
+          <Route
+            exact
+            path='/shop'
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <ShopPage />
+              </Suspense>
+            }
+          />
+          <Route
+            exact
+            path='/signin'
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                {this.props.currentUser ? (
+                  <Navigate to='/' />
+                ) : (
+                  <SignInSignUpPage />
+                )}
+              </Suspense>
+            }
+          />
+          <Route
+            exact
+            path='/signout'
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <SignOutPage />
+              </Suspense>
+            }
+          />
+        </Routes>
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = ({ user }) => ({
-	currentUser: user.currentUser,
+  currentUser: user.currentUser
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+  setCurrentUser: (user) => dispatch(setCurrentUser(user))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

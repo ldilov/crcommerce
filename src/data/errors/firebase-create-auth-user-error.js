@@ -1,12 +1,12 @@
 class FirebaseCreateAuthUserError extends Error {
-	constructor(message, innerError) {
-		super(message);
+  constructor(message, innerError) {
+    super(message);
 
-		this.name = FirebaseCreateAuthUserError.name;
-		this.innerError = innerError;
+    this.name = FirebaseCreateAuthUserError.name;
+    this.innerError = innerError;
 
-		Error.captureStackTrace(this, FirebaseCreateAuthUserError);
-	}
+    Error.captureStackTrace(this, FirebaseCreateAuthUserError);
+  }
 }
 
 export default FirebaseCreateAuthUserError;

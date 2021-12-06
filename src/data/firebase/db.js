@@ -1,82 +1,82 @@
 import { firestore } from './app';
 import {
-	collection,
-	doc,
-	getDoc,
-	setDoc,
-	query,
-	getDocs,
+  collection,
+  doc,
+  getDoc,
+  setDoc,
+  query,
+  getDocs
 } from 'firebase/firestore';
 import FirebaseUserDocumentAlreadyExists from '../errors/firebase-userdoc-already-exists';
 import FirebaseDocumentsNotFound from '../errors/firebase-documents-not-found';
 import FirebaseUserDocumentNotFound from '../errors/firebase-userdoc-not-found';
 
 export const getUserByDocId = async (id) => {
-	const fetchedDoc = await getDoc(doc(firestore, 'users', id));
-	if (fetchedDoc.exists()) {
-		const userData = fetchedDoc.data();
-		return userData;
-	}
+  const fetchedDoc = await getDoc(doc(firestore, 'users', id));
+  if (fetchedDoc.exists()) {
+    const userData = fetchedDoc.data();
+    return userData;
+  }
 
-	throw new FirebaseUserDocumentNotFound(
-		`Document with id ${id} was not found!`,
-		id
-	);
+  throw new FirebaseUserDocumentNotFound(
+    `Document with id ${id} was not found!`,
+    id
+  );
 };
 
 export const getUserCartByUserDocId = async (id) => {
-	const qry = query(collection(firestore, `users/${id}`, 'cartItems'));
-	const fetchedCart = await getDocs(qry);
+  const qry = query(collection(firestore, `users/${id}`, 'cartItems'));
+  const fetchedCart = await getDocs(qry);
 
-	const cartItems = [];
-	fetchedCart.forEach((doc) => {
-		cartItems.push(doc.data());
-	});
+  const cartItems = [];
+  fetchedCart.forEach((doc) => {
+    cartItems.push(doc.data());
+  });
 
-	return cartItems;
+  return cartItems;
 };
 
 export const getAllUsers = async () => {
-	const qry = query(collection(firestore, 'users'));
-	const fetchedDocs = await getDocs(qry);
+  const qry = query(collection(firestore, 'users'));
+  const fetchedDocs = await getDocs(qry);
 
-	const docs = [];
+  const docs = [];
 
-	fetchedDocs.forEach((doc) => {
-		docs.push(doc.data());
-	});
+  fetchedDocs.forEach((doc) => {
+    docs.push(doc.data());
+  });
 
-	if (fetchedDocs.length <= 0) {
-		throw new FirebaseDocumentsNotFound(`No documents were found!`);
-	}
+  if (fetchedDocs.length <= 0) {
+    throw new FirebaseDocumentsNotFound(`No documents were found!`);
+  }
 
-	return docs;
+  return docs;
 };
 
 export const createUserDocument = async (authUser) => {
-	if (!authUser) {
-		return;
-	}
+  if (!authUser) {
+    return;
+  }
 
-	const userRef = doc(firestore, `users`, authUser.uid);
-	const userSnapshot = await getDoc(userRef);
+  const userRef = doc(firestore, `users`, authUser.uid);
+  const userSnapshot = await getDoc(userRef);
 
-	if (userSnapshot.exists()) {
-		throw new FirebaseUserDocumentAlreadyExists(
-			`User with id ${authUser.uid} already exists!`,
-			authUser.uid,
-			userSnapshot
-		);
-	}
+  if (userSnapshot.exists()) {
+    throw new FirebaseUserDocumentAlreadyExists(
+      `User with id ${authUser.uid} already exists!`,
+      authUser.uid,
+      userSnapshot
+    );
+  }
 
-	const createdAt = new Date();
-	const { email, displayName } = authUser;
+  const createdAt = new Date();
+  const { email, displayName } = authUser;
 
-	return {
-		displayName,
-		email,
-		createdAt,
-		userRef,
-		setDoc,
-	};
+  return {
+    displayName,
+    email,
+    createdAt,
+    userRef,
+    setDoc
+  };
 };

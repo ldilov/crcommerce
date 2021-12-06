@@ -1,12 +1,12 @@
 class FirebaseUserDocumentNotFound extends Error {
-	constructor(message, userDocId) {
-		super(message);
+  constructor(message, userDocId) {
+    super(message);
 
-		this.name = FirebaseUserDocumentNotFound.name;
-		this.userDocId = userDocId;
+    this.name = FirebaseUserDocumentNotFound.name;
+    this.userDocId = userDocId;
 
-		Error.captureStackTrace(this, FirebaseUserDocumentNotFound);
-	}
+    Error.captureStackTrace(this, FirebaseUserDocumentNotFound);
+  }
 }
 
 export default FirebaseUserDocumentNotFound;

@@ -5,13 +5,13 @@ import { BrowserRouter } from 'react-router-dom';
 import ReduxProvider from './redux-provider.provider';
 
 const LayeredProvider = ({ children }) => {
-	return (
-		<React.StrictMode>
-			<ReduxProvider>
-				<BrowserRouter>{children}</BrowserRouter>
-			</ReduxProvider>
-		</React.StrictMode>
-	);
+  return (
+    <React.StrictMode>
+      <ReduxProvider>
+        <BrowserRouter>{children}</BrowserRouter>
+      </ReduxProvider>
+    </React.StrictMode>
+  );
 };
 
 export default LayeredProvider;

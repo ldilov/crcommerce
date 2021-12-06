@@ -11,30 +11,30 @@ import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 
 const Header = ({ currentUser, isCartHidden }) => {
-	return (
-		<div className='header'>
-			<Link className='logo-container' to='/'></Link>
-			<div className='options'>
-				<NavbarButton name='shop' uri='shop' />
-				<NavbarButton name='contact' uri='contact' />
-				{currentUser ? (
-					<NavbarButton name='sign out' uri='signout' />
-				) : (
-					<NavbarButton name='sign in' uri='signin' />
-				)}
-				<CartIcon />
-			</div>
+  return (
+    <div className='header'>
+      <Link className='logo-container' to='/'></Link>
+      <div className='options'>
+        <NavbarButton name='shop' uri='shop' />
+        <NavbarButton name='contact' uri='contact' />
+        {currentUser ? (
+          <NavbarButton name='sign out' uri='signout' />
+        ) : (
+          <NavbarButton name='sign in' uri='signin' />
+        )}
+        <CartIcon />
+      </div>
 
-			{isCartHidden ? null : <CartDropdown />}
-		</div>
-	);
+      {isCartHidden ? null : <CartDropdown />}
+    </div>
+  );
 };
 
 const mapStateToProps = (state) => {
-	return {
-		currentUser: state.user.currentUser,
-		isCartHidden: state.cart.hidden,
-	};
+  return {
+    currentUser: state.user.currentUser,
+    isCartHidden: state.cart.hidden
+  };
 };
 
 export default connect(mapStateToProps)(React.memo(Header));

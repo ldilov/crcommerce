@@ -1,11 +1,11 @@
 class FirebaseDocumentsNotFound extends Error {
-	constructor(...args) {
-		super(...args);
+  constructor(...args) {
+    super(...args);
 
-		this.name = FirebaseDocumentsNotFound.name;
+    this.name = FirebaseDocumentsNotFound.name;
 
-		Error.captureStackTrace(this, FirebaseDocumentsNotFound);
-	}
+    Error.captureStackTrace(this, FirebaseDocumentsNotFound);
+  }
 }
 
 export default FirebaseDocumentsNotFound;

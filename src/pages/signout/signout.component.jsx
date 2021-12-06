@@ -5,16 +5,16 @@ import { useNavigate } from 'react-router-dom';
 import AuthService from '../../data/services/auth.service';
 
 const SignOut = () => {
-	const navigate = useNavigate();
+  const navigate = useNavigate();
 
-	useEffect(() => {
-		(async () => {
-			await AuthService.signOut();
-			navigate('/');
-		})();
-	}, [navigate]);
+  useEffect(() => {
+    (async () => {
+      await AuthService.signOut();
+      navigate('/');
+    })();
+  }, [navigate]);
 
-	return <span>Loading...</span>;
+  return <span>Loading...</span>;
 };
 
 export default SignOut;
