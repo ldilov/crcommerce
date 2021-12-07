@@ -14,6 +14,8 @@ const CartDropdown = () => {
         <p> Dummy</p>
         <p> Dummy</p>
         <p> Dummy</p>
+        <p>Test</p>
+        <h1>Test</h1>
       </div>
       <CustomButton>GO TO CHECKOUT</CustomButton>
     </div>

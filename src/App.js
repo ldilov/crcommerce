@@ -1,7 +1,7 @@
 import './App.css';
 
 import { Component, lazy, Suspense } from 'react';
-import { Route, Routes, Navigate } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Header from './components/header/header.component';

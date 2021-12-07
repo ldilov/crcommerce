@@ -13,7 +13,7 @@ import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 const Header = ({ currentUser, isCartHidden }) => {
   return (
     <div className='header'>
-      <Link className='logo-container' to='/'></Link>
+      <Link className='logo-container' to='/' />
       <div className='options'>
         <NavbarButton name='shop' uri='shop' />
         <NavbarButton name='contact' uri='contact' />

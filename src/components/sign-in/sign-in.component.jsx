@@ -91,7 +91,8 @@ class SignIn extends Component {
                   }
                 }}
               >
-                <FcGoogle /> Sign in with Google
+                <FcGoogle />
+                <span className='text-content'>Sign in with Google</span>
               </IconContext.Provider>
             </CustomButton>
           </div>
