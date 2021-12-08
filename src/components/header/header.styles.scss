@@ -27,6 +27,27 @@
       .options {
         width: 100%;
       }
+
+      .logo-container {
+        display: none;
+      }
+    }
+  }
+
+  @media screen and (max-width: 800px) {
+    & {
+      justify-content: center;
+      align-items: center;
+      width: 90vw;
+
+      .options {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .logo-container {
+        display: none;
+      }
     }
   }
 }

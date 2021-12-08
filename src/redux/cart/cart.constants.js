@@ -1,5 +1,6 @@
 export const INITIAL_STATE = {
-  hidden: true
+  hidden: true,
+  cartItems: []
 };
 
 export const ACTION_TYPES = {

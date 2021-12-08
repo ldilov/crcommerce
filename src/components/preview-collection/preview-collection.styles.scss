@@ -13,4 +13,18 @@
     justify-content: space-between;
     flex-wrap: wrap
   }
+
+  @media screen and (max-width: 800px) {
+    .preview {
+      max-width: 400px;
+
+      .preview-item {
+        min-width: 190px;
+      }
+    }
+
+    & {
+      align-items: center;
+    }
+  }
 }
