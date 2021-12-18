@@ -1,9 +1,18 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
+// Actions
+import { addItem } from '../../redux/cart/cart.actions';
+
+// Styles
 import './preview-item.styles.scss';
+
+// Custom components
 import CustomButton from '../custom-button/custom-button.component';
 
-const PreviewItem = ({ name, price, imageUrl }) => {
+const PreviewItem = ({ item, addItem }) => {
+  const { name, price, imageUrl } = item;
+
   return (
     <div className='preview-item'>
       <div className='image' style={{ backgroundImage: `url(${imageUrl})` }} />
@@ -11,11 +20,19 @@ const PreviewItem = ({ name, price, imageUrl }) => {
         <span className='name'>{name}</span>
         <span className='price'>{price}</span>
       </div>
-      <CustomButton inverted={true}>Add to Cart</CustomButton>
+      <CustomButton onClick={() => addItem(item)} inverted={true}>
+        Add to Cart
+      </CustomButton>
     </div>
   );
 };
 
-export default React.memo(PreviewItem, (prevProps, nextProps) => {
-  return prevProps.id === nextProps.id;
+const mapDispatchToProps = (dispatch) => ({
+  addItem: (item) => dispatch(addItem(item))
 });
+
+const memoizeFunction = (prevProps, nextProps) => {
+  return prevProps.id === nextProps.id;
+};
+
+export default React.memo(connect(null, mapDispatchToProps)(PreviewItem), memoizeFunction);

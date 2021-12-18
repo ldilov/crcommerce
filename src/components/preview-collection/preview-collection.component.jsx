@@ -10,7 +10,7 @@ const PreviewCollection = ({ title, items }) => {
   const previewItems = useMemo(() => {
     return items
       .filter((item, index) => index < MAX_PREVIEW_ITEMS)
-      .map(({ id, ...itemProps }) => <PreviewItem key={id} {...itemProps} />);
+      .map((item) => <PreviewItem key={item.id} item={item} />);
   }, []);
 
   return (
