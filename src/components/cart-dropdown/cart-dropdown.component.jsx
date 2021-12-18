@@ -12,7 +12,9 @@ const CartDropdown = ({ cartItems }) => {
 
   return (
     <div className='cart-dropdown'>
-      <div className='cart-items'>{items}</div>
+      <div className='cart-items'>
+        {items.length > 0 ? items : <span className='empty-message'>Cart is empty</span>}
+      </div>
       <CustomButton>GO TO CHECKOUT</CustomButton>
     </div>
   );
