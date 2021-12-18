@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
+import { selectCartHidden, selectCurrentUser } from '../../redux/user/user.selectors';
 
 import './header.styles.scss';
 
@@ -9,6 +10,7 @@ import './header.styles.scss';
 import NavbarButton from '../navbar-button/navbar-button.component';
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
+import { createStructuredSelector } from 'reselect';
 
 const Header = ({ currentUser, isCartHidden }) => {
   return (
@@ -30,11 +32,9 @@ const Header = ({ currentUser, isCartHidden }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    currentUser: state.user.currentUser,
-    isCartHidden: state.cart.hidden
-  };
-};
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+  isCartHidden: selectCartHidden
+});
 
 export default connect(mapStateToProps)(React.memo(Header));

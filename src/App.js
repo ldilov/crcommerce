@@ -3,7 +3,12 @@ import './App.css';
 import { Component, lazy, Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
+// Selectors
+import { selectCurrentUser } from './redux/user/user.selectors';
+
+// Components
 import Header from './components/header/header.component';
 
 // Actions
@@ -72,11 +77,7 @@ class App extends Component {
             path='/signin'
             element={
               <Suspense fallback={<div>Loading...</div>}>
-                {this.props.currentUser ? (
-                  <Navigate to='/' />
-                ) : (
-                  <SignInSignUpPage />
-                )}
+                {this.props.currentUser ? <Navigate to='/' /> : <SignInSignUpPage />}
               </Suspense>
             }
           />
@@ -95,8 +96,8 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser
 });
 
 const mapDispatchToProps = (dispatch) => ({
