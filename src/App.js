@@ -19,6 +19,7 @@ import AuthService from './data/services/auth.service';
 import UserService from './data/services/user.service';
 
 // Lazy loaded components
+const CheckoutPage = lazy(() => import('./pages/checkout/checkout.component'));
 const HomePage = lazy(() => import('./pages/homepage/homepage.component'));
 const ShopPage = lazy(() => import('./pages/shop/shop.component'));
 const SignOutPage = lazy(() => import('./pages/signout/signout.component'));
@@ -69,6 +70,15 @@ class App extends Component {
             element={
               <Suspense fallback={<div>Loading...</div>}>
                 <ShopPage />
+              </Suspense>
+            }
+          />
+          <Route
+            exact
+            path='/checkout'
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <CheckoutPage />
               </Suspense>
             }
           />
