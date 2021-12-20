@@ -1,23 +1,14 @@
 import AuthUserDTO from '../dtos/auth-user.dto';
 import FirebaseCreateAuthUserError from '../errors/firebase-create-auth-user-error';
-import {
-  onAuthStateChange,
-  signInWithGoogle,
-  signInWithCredentials,
-  auth,
-  createUserWithCredentials
-} from '../firebase/auth';
+
+const FirebaseAuth = {
+  module: () => import('../firebase/auth')
+};
 
 class AuthService {
-  #onAuthStateChange;
-  #signInWithGoogle;
-  #signInWithCreds;
   #authStateSubscription;
 
   constructor() {
-    this.#onAuthStateChange = onAuthStateChange;
-    this.#signInWithGoogle = signInWithGoogle;
-    this.#signInWithCreds = signInWithCredentials;
     this.#authStateSubscription = null;
 
     this.providers = {
@@ -26,30 +17,30 @@ class AuthService {
     };
   }
 
-  signUpWithCredentials(email, password) {
+  async signUpWithCredentials(email, password) {
     let result = null;
 
     try {
+      const { createUserWithCredentials } = await this.#getLazyModules();
       result = createUserWithCredentials(email, password);
     } catch (error) {
-      throw new FirebaseCreateAuthUserError(
-        `Unable to create user ${email}!`,
-        error
-      );
+      throw new FirebaseCreateAuthUserError(`Unable to create user ${email}!`, error);
     }
 
     return result;
   }
 
-  signIn(strategy, credentials = null) {
+  async signIn(strategy, credentials = null) {
     let signInMethod = null;
+
+    const { signInWithGoogle, signInWithCredentials } = await this.#getLazyModules();
 
     switch (strategy) {
       case this.providers.GOOGLE:
-        signInMethod = this.#signInWithGoogle;
+        signInMethod = signInWithGoogle;
         break;
       case this.providers.STANDARD:
-        signInMethod = this.#signInWithCreds;
+        signInMethod = signInWithCredentials;
         break;
       default:
         signInMethod = () => {};
@@ -64,14 +55,16 @@ class AuthService {
     return signInMethod();
   }
 
-  signOut() {
+  async signOut() {
+    const { auth } = await this.#getLazyModules();
     if (auth.currentUser) {
       auth.signOut();
     }
   }
 
-  setAuthHandler(stateSetter) {
-    this.#authStateSubscription = this.#onAuthStateChange(auth, (user) => {
+  async setAuthHandler(stateSetter) {
+    const { onAuthStateChange, auth } = await this.#getLazyModules();
+    this.#authStateSubscription = onAuthStateChange(auth, (user) => {
       stateSetter({ currentUser: user ? new AuthUserDTO(user) : null });
     });
   }
@@ -81,6 +74,13 @@ class AuthService {
       this.#authStateSubscription();
     }
   }
+
+  #getLazyModules = async () => {
+    if (typeof FirebaseAuth.module === 'function') {
+      FirebaseAuth.module = await FirebaseAuth.module();
+    }
+    return FirebaseAuth.module;
+  };
 }
 
 const serviceObject = new AuthService();

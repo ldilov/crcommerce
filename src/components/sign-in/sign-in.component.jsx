@@ -78,10 +78,7 @@ class SignIn extends Component {
           />
           <div className='buttons'>
             <CustomButton type='submit'>Submit Form</CustomButton>
-            <CustomButton
-              onClick={this.handleGoogleSignIn}
-              isGoogleSignIn={true}
-            >
+            <CustomButton onClick={this.handleGoogleSignIn} isGoogleSignIn={true}>
               <IconContext.Provider
                 value={{
                   style: {

@@ -37,4 +37,11 @@ const mapStateToProps = createStructuredSelector({
   isCartHidden: selectCartHidden
 });
 
-export default connect(mapStateToProps)(React.memo(Header));
+const shouldMemoizeFunction = (prev, next) => {
+  console.log(prev, next);
+  return (
+    prev.currentUser?.email === next.currentUser?.email && prev.isCartHidden === next.isCartHidden
+  );
+};
+
+export default connect(mapStateToProps)(React.memo(Header, shouldMemoizeFunction));

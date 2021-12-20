@@ -1,12 +1,5 @@
 import { firestore } from './app';
-import {
-  collection,
-  doc,
-  getDoc,
-  setDoc,
-  query,
-  getDocs
-} from 'firebase/firestore';
+import { collection, doc, getDoc, setDoc, query, getDocs } from 'firebase/firestore';
 import FirebaseUserDocumentAlreadyExists from '../errors/firebase-userdoc-already-exists';
 import FirebaseDocumentsNotFound from '../errors/firebase-documents-not-found';
 import FirebaseUserDocumentNotFound from '../errors/firebase-userdoc-not-found';
@@ -18,10 +11,7 @@ export const getUserByDocId = async (id) => {
     return userData;
   }
 
-  throw new FirebaseUserDocumentNotFound(
-    `Document with id ${id} was not found!`,
-    id
-  );
+  throw new FirebaseUserDocumentNotFound(`Document with id ${id} was not found!`, id);
 };
 
 export const getUserCartByUserDocId = async (id) => {

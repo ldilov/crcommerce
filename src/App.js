@@ -15,8 +15,12 @@ import Header from './components/header/header.component';
 import { setCurrentUser } from './redux/user/user.actions';
 
 // Services
-import AuthService from './data/services/auth.service';
-import UserService from './data/services/user.service';
+const AuthService = () => import('./data/services/auth.service');
+const UserService = () => import('./data/services/user.service');
+const Services = {
+  AuthService,
+  UserService
+};
 
 // Lazy loaded components
 const CheckoutPage = lazy(() => import('./pages/checkout/checkout.component'));
@@ -32,7 +36,10 @@ class App extends Component {
     let user = payload.currentUser;
 
     try {
-      await UserService.saveAuthUser(user);
+      if (typeof Services.UserService === 'function') {
+        Services.UserService = (await UserService()).default;
+      }
+      await Services.UserService.saveAuthUser(user);
     } catch (error) {
       if (error.innerError.snapshot) {
         user = error.innerError.snapshot.data();
@@ -43,11 +50,14 @@ class App extends Component {
   };
 
   componentWillUnmount() {
-    AuthService.destroyAuthHandler();
+    Services.AuthService.destroyAuthHandler();
   }
 
   componentDidMount() {
-    AuthService.setAuthHandler(this.handleSetCurrentUser);
+    AuthService().then((module) => {
+      Services.AuthService = module.default;
+      module.default.setAuthHandler(this.handleSetCurrentUser);
+    });
   }
 
   render() {

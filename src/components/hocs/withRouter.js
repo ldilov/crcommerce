@@ -7,14 +7,7 @@ function withRouter(Child) {
     const navigate = useNavigate();
     const params = useParams();
 
-    return (
-      <Child
-        {...props}
-        navigate={navigate}
-        location={location}
-        params={params}
-      />
-    );
+    return <Child {...props} navigate={navigate} location={location} params={params} />;
   };
 }
 

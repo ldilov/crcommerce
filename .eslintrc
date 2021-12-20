@@ -18,10 +18,15 @@
       }
     ]
   },
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "parserOptions": {
     "sourceType": "module",
-    "allowImportExportEverywhere": true
+    "requiredConfigFile": false,
+    "allowImportExportEverywhere": true,
+    "babelOptions": {
+      "presets": ["@babel/preset-react"],
+      "plugins": ["@babel/proposal-class-properties", "@babel/proposal-private-methods"]
+    }
   },
   "plugins": ["prettier"],
   "env": {

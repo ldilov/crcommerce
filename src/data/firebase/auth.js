@@ -1,10 +1,10 @@
 import { providers } from './app';
 import {
+  createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
-  signInWithPopup,
   signInWithEmailAndPassword,
-  createUserWithEmailAndPassword
+  signInWithPopup
 } from 'firebase/auth';
 
 export const auth = getAuth();

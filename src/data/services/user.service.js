@@ -22,9 +22,7 @@ class UserService {
 
   async getAllUsers() {
     const users = await getAllUsers();
-    const result = users
-      .map((u) => (u ? new GetUserDTO(u) : null))
-      .filter((u) => u !== null);
+    const result = users.map((u) => (u ? new GetUserDTO(u) : null)).filter((u) => u !== null);
 
     return result;
   }
@@ -68,10 +66,7 @@ class UserService {
     try {
       result = await createUserDocument(authUser);
     } catch (error) {
-      throw new ServiceCreateUserError(
-        error,
-        `Unable to create user document!`
-      );
+      throw new ServiceCreateUserError(error, `Unable to create user document!`);
     }
 
     if (!result) {
@@ -84,10 +79,7 @@ class UserService {
     try {
       await setDoc(userRef, JSON.parse(JSON.stringify(dbUser)));
     } catch (error) {
-      throw new ServiceCreateUserError(
-        error,
-        `Unable to create user in the database!`
-      );
+      throw new ServiceCreateUserError(error, `Unable to create user in the database!`);
     }
   }
 }

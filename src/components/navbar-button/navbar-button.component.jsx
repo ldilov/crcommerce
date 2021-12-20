@@ -17,7 +17,5 @@ const NavbarButton = ({ name, uri }) => {
 };
 
 export default memo(NavbarButton, (currentProps, nextProps) => {
-  return (
-    currentProps.name === nextProps.name && currentProps.uri === nextProps.uri
-  );
+  return currentProps.name === nextProps.name && currentProps.uri === nextProps.uri;
 });
