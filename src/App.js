@@ -50,7 +50,12 @@ class App extends Component {
   };
 
   componentWillUnmount() {
-    Services.AuthService.destroyAuthHandler();
+    if (typeof Services.AuthService === 'function') {
+      AuthService().then((module) => {
+        Services.AuthService = module.default;
+        module.default.destroyAuthHandler();
+      });
+    }
   }
 
   componentDidMount() {
@@ -76,7 +81,7 @@ class App extends Component {
           />
           <Route
             exact
-            path='/shop'
+            path='/shop/*'
             element={
               <Suspense fallback={<div>Loading...</div>}>
                 <ShopPage />

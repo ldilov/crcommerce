@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "firebase": "^9.6.0",
+    "lodash.memoize": "^4.1.2",
     "node-sass": "^6.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -27,12 +28,14 @@
     "eslint-plugin-react": "^7.26.1",
     "eslint-plugin-react-hooks": "^4.2.0",
     "prettier": "2.5.1",
-    "react-scripts": "4.0.3"
+    "react-scripts": "4.0.3",
+    "webpack-bundle-analyzer": "^4.5.0"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "winBuild": "set \"GENERATE_SOURCEMAP=false\" &&  eslint src --ext jsx &&  prettier --check \"src\"&& npm audit --production && react-scripts build && compress-cra",
+    "build": "react-scripts build --stats",
+    "analyze": "webpack-bundle-analyzer build/bundle-stats.json",
+    "winBuild": "set \"GENERATE_SOURCEMAP=false\" &&  eslint src --ext jsx &&  prettier --check \"src\"&& react-scripts build && compress-cra",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint src --ext jsx js"

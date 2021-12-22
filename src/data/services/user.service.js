@@ -1,19 +1,21 @@
 import AuthUserDbDTO from '../dtos/auth-db-user.dto';
 import GetUserDTO from '../dtos/get-user.dto';
 
+import LazyLoader from '../helpers/LazyLoader';
+
 import ServiceCreateUserError from '../errors/service-create-user-error';
 
-import {
-  getAllUsers,
-  getUserByDocId,
-  getUserCartByUserDocId,
-  createUserDocument
-} from '../firebase/db';
+const FirebaseDB = {
+  module: () => import('../firebase/db')
+};
+
+const load = new LazyLoader(FirebaseDB).import;
 
 class UserService {
   constructor() {}
 
   async getAllDbUsers() {
+    const getAllUsers = await load('getAllUsers');
     const users = await getAllUsers();
     const result = users.map((u) => new AuthUserDbDTO(u));
 
@@ -21,6 +23,7 @@ class UserService {
   }
 
   async getAllUsers() {
+    const { getAllUsers } = await load('getAllUsers');
     const users = await getAllUsers();
     const result = users.map((u) => (u ? new GetUserDTO(u) : null)).filter((u) => u !== null);
 
@@ -28,6 +31,7 @@ class UserService {
   }
 
   async getDbUserById(id) {
+    const { getUserByDocId } = await load('getUserByDocId');
     const userData = await getUserByDocId(id);
     let result = null;
 
@@ -39,6 +43,10 @@ class UserService {
   }
 
   async getUserById(id) {
+    const [getUserByDocId, getUserCartByUserDocId] = await Promise.all([
+      load('getUserByDocId'),
+      load('getUserCartByUserDocId')
+    ]);
     const [userData, cartItems] = await Promise.all([
       getUserByDocId(id),
       getUserCartByUserDocId(id)
@@ -54,6 +62,7 @@ class UserService {
   }
 
   async saveAuthUser(authUser, additionalData = null) {
+    const createUserDocument = await load('createUserDocument');
     let result = null;
 
     if (additionalData) {

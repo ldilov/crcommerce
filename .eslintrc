@@ -10,7 +10,10 @@
     "react/prop-types": "off",
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
-    "eqeqeq": ["error", "always"],
+    "eqeqeq": [
+      "error",
+      "always"
+    ],
     "prettier/prettier": [
       "error",
       {
@@ -24,11 +27,17 @@
     "requiredConfigFile": false,
     "allowImportExportEverywhere": true,
     "babelOptions": {
-      "presets": ["@babel/preset-react"],
-      "plugins": ["@babel/proposal-class-properties", "@babel/proposal-private-methods"]
+      "presets": [
+        "@babel/preset-react"
+      ],
+      "plugins": [
+        "@babel/proposal-class-properties"
+      ]
     }
   },
-  "plugins": ["prettier"],
+  "plugins": [
+    "prettier"
+  ],
   "env": {
     "browser": true,
     "node": true,

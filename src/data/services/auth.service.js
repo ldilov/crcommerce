@@ -1,9 +1,13 @@
 import AuthUserDTO from '../dtos/auth-user.dto';
 import FirebaseCreateAuthUserError from '../errors/firebase-create-auth-user-error';
 
+import LazyLoader from '../helpers/LazyLoader';
+
 const FirebaseAuth = {
   module: () => import('../firebase/auth')
 };
+
+const load = new LazyLoader(FirebaseAuth).import;
 
 class AuthService {
   #authStateSubscription;
@@ -21,7 +25,7 @@ class AuthService {
     let result = null;
 
     try {
-      const { createUserWithCredentials } = await this.#getLazyModules();
+      const createUserWithCredentials = await load('createUserWithCredentials');
       result = createUserWithCredentials(email, password);
     } catch (error) {
       throw new FirebaseCreateAuthUserError(`Unable to create user ${email}!`, error);
@@ -32,8 +36,10 @@ class AuthService {
 
   async signIn(strategy, credentials = null) {
     let signInMethod = null;
-
-    const { signInWithGoogle, signInWithCredentials } = await this.#getLazyModules();
+    const [signInWithGoogle, signInWithCredentials] = await Promise.all([
+      load('signInWithGoogle'),
+      load('signInWithCredentials')
+    ]);
 
     switch (strategy) {
       case this.providers.GOOGLE:
@@ -56,14 +62,16 @@ class AuthService {
   }
 
   async signOut() {
-    const { auth } = await this.#getLazyModules();
+    const auth = await load('auth');
     if (auth.currentUser) {
       auth.signOut();
     }
   }
 
   async setAuthHandler(stateSetter) {
-    const { onAuthStateChange, auth } = await this.#getLazyModules();
+    const onAuthStatePromise = load('onAuthStateChange');
+    const authPromise = load('auth');
+    const [onAuthStateChange, auth] = await Promise.all([onAuthStatePromise, authPromise]);
     this.#authStateSubscription = onAuthStateChange(auth, (user) => {
       stateSetter({ currentUser: user ? new AuthUserDTO(user) : null });
     });
@@ -74,13 +82,6 @@ class AuthService {
       this.#authStateSubscription();
     }
   }
-
-  #getLazyModules = async () => {
-    if (typeof FirebaseAuth.module === 'function') {
-      FirebaseAuth.module = await FirebaseAuth.module();
-    }
-    return FirebaseAuth.module;
-  };
 }
 
 const serviceObject = new AuthService();
