@@ -3,6 +3,7 @@ import './collection.styles.scss';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectRoutedCollection } from '../../redux/shop/shop.selectors';
+
 import PreviewItem from '../../components/preview-item/preview-item.component';
 
 const CollectionPage = () => {
