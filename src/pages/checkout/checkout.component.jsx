@@ -1,38 +1,38 @@
 import { connect } from 'react-redux';
 
-import './checkout.styles.scss';
 import { createStructuredSelector } from 'reselect';
 import { selectCartItems, selectCartTotal } from '../../redux/cart/cart.selectors';
 
 // Components
 import CheckoutItem from '../../components/checkout-item/checkout-item.component';
+import { CheckoutHeader, CheckoutPageContainer, HeaderBlock, Total } from './checkout.styles';
 
 const CheckoutPage = ({ cartItems, cartTotal }) => (
-  <div className='checkout-page'>
-    <div className='checkout-header'>
-      <div className='header-block'>
+  <CheckoutPageContainer>
+    <CheckoutHeader>
+      <HeaderBlock>
         <span>Product</span>
-      </div>
-      <div className='header-block'>
+      </HeaderBlock>
+      <HeaderBlock>
         <span>Description</span>
-      </div>
-      <div className='header-block'>
+      </HeaderBlock>
+      <HeaderBlock>
         <span>Quantity</span>
-      </div>
-      <div className='header-block'>
+      </HeaderBlock>
+      <HeaderBlock>
         <span>Price</span>
-      </div>
-      <div className='header-block'>
+      </HeaderBlock>
+      <HeaderBlock>
         <span>Remove</span>
-      </div>
-    </div>
+      </HeaderBlock>
+    </CheckoutHeader>
     {cartItems.map((cartItem) => (
       <CheckoutItem cartItem={cartItem} key={cartItem.id} />
     ))}
-    <div className='total'>
+    <Total>
       <span>TOTAL: {cartTotal}</span>
-    </div>
-  </div>
+    </Total>
+  </CheckoutPageContainer>
 );
 
 const mapStateToProps = createStructuredSelector({

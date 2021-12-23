@@ -1,107 +1,110 @@
-$thick: 3px;
-$pad: 0.3em;
-$extra: calc(#{$pad} * 1.2);
-$color: #f26522;
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-.option {
-  padding: 10px 15px;
+const thick = '2px';
+const pad = '0.3em';
+const extra = `calc(${pad} * 1.2)`;
+const color = '#f26522';
+
+export const OptionLink = styled(Link)`
   color: black;
   margin-right: 5px;
   text-align: center;
-  padding: $pad $extra;
+  padding: ${pad} ${extra};
   display: inline-block;
-  border: $thick solid transparent;
+  border: ${thick} solid transparent;
   position: relative;
   font-size: 1.3em;
   cursor: pointer;
   letter-spacing: 0.07em;
 
-  .text {
-    // padding: 0 0.3em;
-    white-space: nowrap;
-    font-family: proxima-nova, monospace;
-    transform: translate3d(0, $pad, 0);
-    display: block;
-    transition: transform 0.4s cubic-bezier(0.2, 0, 0, 1) 0.4s;
-  }
-
   &:after {
     position: absolute;
     content: '';
-    bottom: -$thick;
-    left: $extra;
-    right: $extra;
-    height: $thick;
-    background: $color;
+    bottom: -${thick};
+    left: ${extra};
+    right: ${extra};
+    height: ${thick};
+    background: ${color};
     // z-index: -1;
     transition: transform 0.8s cubic-bezier(1, 0, 0.37, 1) 0.2s,
       right 0.2s cubic-bezier(0.04, 0.48, 0, 1) 0.6s, left 0.4s cubic-bezier(0.04, 0.48, 0, 1) 0.6s;
     transform-origin: left;
   }
-}
 
-.line {
+  &:hover,
+  &:active {
+    &:after {
+      transform: scale3d(0, 1, 1);
+      right: -${thick};
+      left: -${thick};
+      transform-origin: right;
+      transition: transform 0.2s cubic-bezier(1, 0, 0.65, 1.01) 0.17s,
+        right 0.2s cubic-bezier(1, 0, 0.65, 1.01), left 0s 0.3s;
+    }
+  }
+`;
+
+export const Text = styled.span`
+  white-space: nowrap;
+  font-family: proxima-nova, monospace;
+  transform: translate3d(0, ${pad}, 0);
+  display: block;
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0, 1) 0.4s;
+
+  ${OptionLink}:hover &,
+  ${OptionLink}:active & {
+    transform: translate3d(0, 0, 0);
+    transition: transform 0.6s cubic-bezier(0.2, 0, 0, 1) 0.4s;
+  }
+`;
+
+export const Line = styled.span`
   position: absolute;
-  background: $color;
+  background: ${color};
 
   &.-right,
   &.-left {
-    width: $thick;
-    bottom: -$thick;
-    top: -$thick;
+    width: ${thick};
+    bottom: -${thick};
+    top: -${thick};
     transform: scale3d(1, 0, 1);
   }
 
   &.-top,
   &.-bottom {
-    height: $thick;
-    left: -$thick;
-    right: -$thick;
+    height: ${thick};
+    left: -${thick};
+    right: -${thick};
     transform: scale3d(0, 1, 1);
   }
 
   &.-right {
-    right: -$thick;
+    right: -${thick};
     transition: transform 0.1s cubic-bezier(1, 0, 0.65, 1.01) 0.23s;
     transform-origin: top;
   }
 
   &.-top {
-    top: -$thick;
+    top: -${thick};
     transition: transform 0.08s linear 0.43s;
     transform-origin: left;
   }
 
   &.-left {
-    left: -$thick;
+    left: -${thick};
     transition: transform 0.08s linear 0.51s;
     transform-origin: bottom;
   }
 
   &.-bottom {
-    bottom: -$thick;
+    bottom: -${thick};
     transition: transform 0.3s cubic-bezier(1, 0, 0.65, 1.01);
     transform-origin: right;
   }
-}
 
-a:hover,
-a:active {
-  .text {
-    transform: translate3d(0, 0, 0);
-    transition: transform 0.6s cubic-bezier(0.2, 0, 0, 1) 0.4s;
-  }
-
-  &:after {
-    transform: scale3d(0, 1, 1);
-    right: -$thick;
-    left: -$thick;
-    transform-origin: right;
-    transition: transform 0.2s cubic-bezier(1, 0, 0.65, 1.01) 0.17s,
-      right 0.2s cubic-bezier(1, 0, 0.65, 1.01), left 0s 0.3s;
-  }
-
-  .line {
+  ${OptionLink}:hover &,
+  ${OptionLink}:active & {
     transform: scale3d(1, 1, 1);
 
     &.-right {
@@ -124,4 +127,4 @@ a:active {
       transform-origin: left;
     }
   }
-}
+`;

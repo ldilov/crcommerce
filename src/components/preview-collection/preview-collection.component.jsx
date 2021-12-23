@@ -1,8 +1,7 @@
-import './preview-collection.styles.scss';
-
 import { useMemo } from 'react';
 
 import PreviewItem from '../preview-item/preview-item.component';
+import { Preview, PreviewContainer, Title } from './preview-collection.styles';
 
 const MAX_PREVIEW_ITEMS = 4;
 
@@ -14,10 +13,10 @@ const PreviewCollection = ({ title, items }) => {
   }, []);
 
   return (
-    <div className='collection-preview'>
-      <h1 className='title'>{title.toUpperCase()}</h1>
-      <div className='preview'>{previewItems}</div>
-    </div>
+    <PreviewContainer>
+      <Title>{title.toUpperCase()}</Title>
+      <Preview>{previewItems}</Preview>
+    </PreviewContainer>
   );
 };
 

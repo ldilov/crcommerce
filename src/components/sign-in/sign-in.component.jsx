@@ -1,7 +1,6 @@
 import { Component } from 'react';
 
 // Components
-import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 
 // Icons
@@ -11,7 +10,7 @@ import { IconContext } from 'react-icons';
 // Services
 import AuthService from '../../data/services/auth.service';
 
-import './sign-in.styles.scss';
+import { ButtonsContainer, FormInputContainer, SignInContainer, TitleText } from './sign-in.styles';
 
 class SignIn extends Component {
   constructor(props) {
@@ -54,12 +53,12 @@ class SignIn extends Component {
 
   render() {
     return (
-      <div className='sign-in'>
-        <h2>I already have an account</h2>
+      <SignInContainer>
+        <TitleText>I already have an account</TitleText>
         <span>Sign in with your email and password</span>
 
         <form onSubmit={this.handleSubmit}>
-          <FormInput
+          <FormInputContainer
             name='email'
             type='email'
             value={this.state.email}
@@ -67,7 +66,7 @@ class SignIn extends Component {
             label='Email'
             required
           />
-          <FormInput
+          <FormInputContainer
             name='password'
             type='password'
             label='Password'
@@ -76,7 +75,7 @@ class SignIn extends Component {
             handleChange={this.handleChange}
             required
           />
-          <div className='buttons'>
+          <ButtonsContainer>
             <CustomButton type='submit'>Submit Form</CustomButton>
             <CustomButton onClick={this.handleGoogleSignIn} isGoogleSignIn={true}>
               <IconContext.Provider
@@ -92,9 +91,9 @@ class SignIn extends Component {
                 <span className='text-content'>Sign in with Google</span>
               </IconContext.Provider>
             </CustomButton>
-          </div>
+          </ButtonsContainer>
         </form>
-      </div>
+      </SignInContainer>
     );
   }
 }

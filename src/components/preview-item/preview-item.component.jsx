@@ -4,26 +4,30 @@ import { connect } from 'react-redux';
 // Actions
 import { addItem } from '../../redux/cart/cart.actions';
 
-// Styles
-import './preview-item.styles.scss';
-
 // Custom components
-import CustomButton from '../custom-button/custom-button.component';
+import {
+  CustomButtonContainer,
+  ImageContainer,
+  NameText,
+  PreviewFooter,
+  PreviewItemContainer,
+  PriceText
+} from './preview-item.styles';
 
 const PreviewItem = ({ item, addItem }) => {
   const { name, price, imageUrl } = item;
 
   return (
-    <div className='preview-item'>
-      <div className='image' style={{ backgroundImage: `url(${imageUrl})` }} />
-      <div className='preview-footer'>
-        <span className='name'>{name}</span>
-        <span className='price'>{price}</span>
-      </div>
-      <CustomButton onClick={() => addItem(item)} inverted={true}>
+    <PreviewItemContainer>
+      <ImageContainer style={{ backgroundImage: `url(${imageUrl})` }} />
+      <PreviewFooter>
+        <NameText>{name}</NameText>
+        <PriceText>{price}</PriceText>
+      </PreviewFooter>
+      <CustomButtonContainer onClick={() => addItem(item)} inverted={true}>
         Add to Cart
-      </CustomButton>
-    </div>
+      </CustomButtonContainer>
+    </PreviewItemContainer>
   );
 };
 

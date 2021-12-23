@@ -1,14 +1,17 @@
 import { Component } from 'react';
 
-import './sign-up.styles.scss';
-
 // Components
-import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 
 // Services
 import UserService from '../../data/services/user.service';
 import AuthService from '../../data/services/auth.service';
+import {
+  FormInputContainer,
+  SignupContainer,
+  SignupFormContainer,
+  TitleText
+} from './sign-up.styles';
 
 class SignUp extends Component {
   constructor() {
@@ -54,11 +57,12 @@ class SignUp extends Component {
     const { displayName, email, password, confirmPassword } = this.state;
 
     return (
-      <div className='sign-up'>
-        <h2 className='title'>I do not have an account</h2>
+      <SignupContainer>
+        <TitleText>I do not have an account</TitleText>
         <span>Sign up with your email and password</span>
-        <form className='sign-up-form' onSubmit={this.handleSubmit}>
-          <FormInput
+
+        <SignupFormContainer onSubmit={this.handleSubmit}>
+          <FormInputContainer
             type='text'
             name='displayName'
             value={displayName}
@@ -67,7 +71,7 @@ class SignUp extends Component {
             required
           />
 
-          <FormInput
+          <FormInputContainer
             type='email'
             name='email'
             value={email}
@@ -76,7 +80,7 @@ class SignUp extends Component {
             required
           />
 
-          <FormInput
+          <FormInputContainer
             type='password'
             name='password'
             value={password}
@@ -85,7 +89,7 @@ class SignUp extends Component {
             required
           />
 
-          <FormInput
+          <FormInputContainer
             type='password'
             name='confirmPassword'
             value={confirmPassword}
@@ -95,8 +99,8 @@ class SignUp extends Component {
           />
 
           <CustomButton type='submit'>SIGN UP</CustomButton>
-        </form>
-      </div>
+        </SignupFormContainer>
+      </SignupContainer>
     );
   }
 }

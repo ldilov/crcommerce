@@ -3,10 +3,10 @@ import { useCallback } from 'react';
 import SignIn from '../../components/sign-in/sign-in.component';
 import SignUp from '../../components/sign-up/sign-up.component';
 
-import { ToastContainer, toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 
-import './signin-and-signup.styles.scss';
 import 'react-toastify/dist/ReactToastify.css';
+import { SignInSignUpContainer } from './signin-and-signup.styles';
 
 const SignInAndSignUpPage = () => {
   const toastify = useCallback((message, type) => {
@@ -14,7 +14,7 @@ const SignInAndSignUpPage = () => {
   }, []);
 
   return (
-    <div className='sign-in-and-sign-up'>
+    <SignInSignUpContainer>
       <ToastContainer
         position='top-left'
         autoClose={5000}
@@ -28,7 +28,7 @@ const SignInAndSignUpPage = () => {
       />
       <SignIn notify={toastify} />
       <SignUp />
-    </div>
+    </SignInSignUpContainer>
   );
 };
 

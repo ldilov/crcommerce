@@ -1,4 +1,6 @@
-.sign-in-and-sign-up {
+import styled from 'styled-components';
+
+export const SignInSignUpContainer = styled.div`
   width: 60vw;
   display: flex;
   justify-content: space-between;
@@ -25,4 +27,4 @@
       padding: 0;
     }
   }
-}
+`;

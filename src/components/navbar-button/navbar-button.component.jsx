@@ -1,18 +1,16 @@
 import { memo } from 'react';
 
-import './navbar-button.styles.scss';
-
-import { Link } from 'react-router-dom';
+import { Line, OptionLink, Text } from './navbar-button.styles';
 
 const NavbarButton = ({ name, uri }) => {
   return (
-    <Link to={`/${uri}`} className='option'>
-      <span className='text'>{name.toUpperCase()}</span>
-      <span className='line -right'></span>
-      <span className='line -top'></span>
-      <span className='line -left'></span>
-      <span className='line -bottom'></span>
-    </Link>
+    <OptionLink to={`/${uri}`} className='option'>
+      <Text>{name.toUpperCase()}</Text>
+      <Line className='-right' />
+      <Line className='-top' />
+      <Line className='-left' />
+      <Line className='-bottom' />
+    </OptionLink>
   );
 };
 
