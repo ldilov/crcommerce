@@ -1,5 +1,5 @@
 import { firestore } from './app';
-import { collection, doc, getDoc, setDoc, query, getDocs } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, onSnapshot, query, setDoc } from 'firebase/firestore';
 import FirebaseUserDocumentAlreadyExists from '../errors/firebase-userdoc-already-exists';
 import FirebaseDocumentsNotFound from '../errors/firebase-documents-not-found';
 import FirebaseUserDocumentNotFound from '../errors/firebase-userdoc-not-found';
@@ -69,4 +69,8 @@ export const createUserDocument = async (authUser) => {
     userRef,
     setDoc
   };
+};
+
+export const getCollecitonOnSnapshot = (callback) => {
+  return onSnapshot(collection(firestore, 'collections'), callback);
 };

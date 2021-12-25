@@ -11,7 +11,7 @@ import {
 const CollectionPage = () => {
   const { categoryId } = useParams();
   const { title, items } = useSelector(selectRoutedCollection(categoryId));
-  console.log(items);
+
   return (
     <CollectionPageContainer>
       <CollectionTitle>{title}</CollectionTitle>
