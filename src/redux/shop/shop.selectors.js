@@ -10,7 +10,11 @@ export const selectCollectionsForPreview = createSelector([selectCollections], (
 );
 
 export const selectRoutedCollection = memoize((collectionUrlParam) =>
-  createSelector([selectCollections], (collections) =>
-    collections ? collections.collections[collectionUrlParam] : null
-  )
+  createSelector([selectCollections], (collections) => {
+    return collections ? collections.collections[collectionUrlParam] : null;
+  })
 );
+
+export const selectIsCollectionFetching = createSelector([selectShop], (shop) => shop.isFetching);
+
+export const selectIsCollectionLoaded = createSelector([selectShop], (shop) => !!shop.collections);

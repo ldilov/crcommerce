@@ -71,6 +71,11 @@ export const createUserDocument = async (authUser) => {
   };
 };
 
-export const getCollecitonOnSnapshot = (callback) => {
+export const getCollectionOnSnapshot = (callback) => {
   return onSnapshot(collection(firestore, 'collections'), callback);
+};
+
+export const getCollectionsSnapshot = async () => {
+  const querySnapshot = await getDocs(collection(firestore, 'collections'));
+  return querySnapshot;
 };

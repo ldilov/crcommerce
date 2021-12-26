@@ -15,7 +15,7 @@ class CollectionsService {
   }
 
   async setOnCollectionChangeHandler(callback) {
-    const getCollectionsOnSnapshot = await load('getCollecitonOnSnapshot');
+    const getCollectionsOnSnapshot = await load('getCollectionOnSnapshot');
 
     this.#collectionsStateSubscription = getCollectionsOnSnapshot((col) => {
       const collectionsResponse = col.docs.map((el) => ({
@@ -33,6 +33,18 @@ class CollectionsService {
     if (this.#collectionsStateSubscription) {
       this.#collectionsStateSubscription();
     }
+  }
+
+  async getCollectionSnapshot() {
+    const getCollectionsSnapshot = await load('getCollectionsSnapshot');
+    const snapshot = await getCollectionsSnapshot();
+
+    const collectionsResponse = snapshot.docs.map((el) => ({
+      data: el.data(),
+      id: el.id
+    }));
+
+    return new CollectionResponseDTO(collectionsResponse);
   }
 }
 
