@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { compose } from 'redux';
 
 import withRouter from '../hocs/withRouter';
 
@@ -42,6 +43,10 @@ const mapStateToProps = createStructuredSelector({
   cartItems: selectCartItems
 });
 
-export default withRouter(
-  connect(mapStateToProps, null, null, { forwardRef: true })(forwardRef(CartDropdown))
+const composed = compose(
+  withRouter,
+  connect(mapStateToProps, null, null, { forwardRef: true }),
+  forwardRef
 );
+
+export default composed(CartDropdown);
