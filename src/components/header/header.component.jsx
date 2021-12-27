@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { connect } from 'react-redux';
 import { selectCartHidden, selectCurrentUser } from '../../redux/user/user.selectors';
@@ -11,8 +11,32 @@ import { createStructuredSelector } from 'reselect';
 
 // Styled components
 import { HeaderContainer, LogoContainer, OptionsContainer } from './header.styles';
+import { setCartHidden } from '../../redux/cart/cart.actions';
 
-const Header = ({ currentUser, isCartHidden }) => {
+const Header = ({ currentUser, isCartHidden, setCartHidden }) => {
+  const ref = useRef();
+  const refDropDown = useRef();
+
+  useEffect(() => {
+    const handler = (event) => {
+      if (
+        event.target &&
+        ref.current &&
+        refDropDown.current &&
+        !ref.current.contains(event.target) &&
+        !refDropDown.current.contains(event.target)
+      ) {
+        setCartHidden();
+      }
+    };
+
+    document.addEventListener('click', handler, true);
+
+    return () => {
+      document.removeEventListener('click', handler, true);
+    };
+  }, []);
+
   return (
     <HeaderContainer>
       <LogoContainer className='logo-container' to='/' />
@@ -24,10 +48,12 @@ const Header = ({ currentUser, isCartHidden }) => {
         ) : (
           <NavbarButton name='sign in' uri='signin' />
         )}
-        <CartIcon />
+        <div ref={ref}>
+          <CartIcon />
+        </div>
       </OptionsContainer>
 
-      {isCartHidden ? null : <CartDropdown />}
+      {isCartHidden ? null : <CartDropdown ref={refDropDown} />}
     </HeaderContainer>
   );
 };
@@ -37,10 +63,17 @@ const mapStateToProps = createStructuredSelector({
   isCartHidden: selectCartHidden
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  setCartHidden: () => dispatch(setCartHidden())
+});
+
 const shouldMemoizeFunction = (prev, next) => {
   return (
     prev.currentUser?.email === next.currentUser?.email && prev.isCartHidden === next.isCartHidden
   );
 };
 
-export default connect(mapStateToProps)(React.memo(Header, shouldMemoizeFunction));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(React.memo(Header, shouldMemoizeFunction));

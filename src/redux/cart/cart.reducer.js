@@ -3,6 +3,11 @@ import { addItemToCart, decreaseItemQuantity } from './cart.utils';
 
 const cartReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case ACTION_TYPES.SET_CART_HIDDEN:
+      return {
+        ...state,
+        hidden: true
+      };
     case ACTION_TYPES.TOGGLE_CART_HIDDEN:
       return {
         ...state,

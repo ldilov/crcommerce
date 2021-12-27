@@ -13,23 +13,27 @@ import {
   CartItemsContainer,
   TextEmptyMessage
 } from './cart-dropdown.styles';
+import { forwardRef } from 'react';
 
-const CartDropdown = ({ cartItems, navigate, dispatch }) => {
+const CartDropdown = (props, ref) => {
+  const { cartItems, navigate, dispatch } = props;
   const items = cartItems.map((item) => <CartItemComponent item={item} key={item.id} />);
 
   return (
     <CartDropdownContainer>
-      <CartItemsContainer>
-        {items.length > 0 ? items : <TextEmptyMessage>Cart is empty</TextEmptyMessage>}
-      </CartItemsContainer>
-      <CustomButton
-        onClick={() => {
-          navigate('/checkout');
-          dispatch(toggleCartHidden());
-        }}
-      >
-        GO TO CHECKOUT
-      </CustomButton>
+      <div ref={ref}>
+        <CartItemsContainer>
+          {items.length > 0 ? items : <TextEmptyMessage>Cart is empty</TextEmptyMessage>}
+        </CartItemsContainer>
+        <CustomButton
+          onClick={() => {
+            navigate('/checkout');
+            dispatch(toggleCartHidden());
+          }}
+        >
+          GO TO CHECKOUT
+        </CustomButton>
+      </div>
     </CartDropdownContainer>
   );
 };
@@ -38,4 +42,6 @@ const mapStateToProps = createStructuredSelector({
   cartItems: selectCartItems
 });
 
-export default withRouter(connect(mapStateToProps, null)(CartDropdown));
+export default withRouter(
+  connect(mapStateToProps, null, null, { forwardRef: true })(forwardRef(CartDropdown))
+);
