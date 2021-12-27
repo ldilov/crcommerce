@@ -19,13 +19,10 @@ const Header = ({ currentUser, isCartHidden, setCartHidden }) => {
 
   useEffect(() => {
     const handler = (event) => {
-      if (
-        event.target &&
-        ref.current &&
-        refDropDown.current &&
-        !ref.current.contains(event.target) &&
-        !refDropDown.current.contains(event.target)
-      ) {
+      const isOutsideCartIcon = ref.current && !ref.current.contains(event.target);
+      const isOutsideDropDown = refDropDown.current && !refDropDown.current.contains(event.target);
+
+      if (event.target && isOutsideCartIcon && isOutsideDropDown) {
         setCartHidden();
       }
     };
