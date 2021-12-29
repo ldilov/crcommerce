@@ -4,6 +4,7 @@ import GetUserDTO from '../dtos/get-user.dto';
 import LazyLoader from '../helpers/LazyLoader';
 
 import ServiceCreateUserError from '../errors/service-create-user-error';
+import FirebaseUserDocumentAlreadyExists from '../errors/firebase-userdoc-already-exists';
 
 const FirebaseDB = {
   module: () => import('../firebase/db')
@@ -61,7 +62,7 @@ class UserService {
     return result;
   }
 
-  async saveAuthUser(authUser, additionalData = null) {
+  saveAuthUser = async (authUser, additionalData = null) => {
     const createUserDocument = await load('createUserDocument');
     let result = null;
 
@@ -75,6 +76,10 @@ class UserService {
     try {
       result = await createUserDocument(authUser);
     } catch (error) {
+      if (error instanceof FirebaseUserDocumentAlreadyExists) {
+        return new AuthUserDbDTO(error.snapshot.data());
+      }
+
       throw new ServiceCreateUserError(error, `Unable to create user document!`);
     }
 
@@ -87,10 +92,11 @@ class UserService {
 
     try {
       await setDoc(userRef, JSON.parse(JSON.stringify(dbUser)));
+      return dbUser;
     } catch (error) {
       throw new ServiceCreateUserError(error, `Unable to create user in the database!`);
     }
-  }
+  };
 }
 
 const service = new UserService();

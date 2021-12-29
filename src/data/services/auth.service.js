@@ -34,7 +34,7 @@ class AuthService {
     return result;
   }
 
-  async signIn(strategy, credentials = null) {
+  signIn = async (strategy, credentials = null) => {
     let signInMethod = null;
     const [signInWithGoogle, signInWithCredentials] = await Promise.all([
       load('signInWithGoogle'),
@@ -59,7 +59,7 @@ class AuthService {
     }
 
     return signInMethod();
-  }
+  };
 
   async signOut() {
     const auth = await load('auth');

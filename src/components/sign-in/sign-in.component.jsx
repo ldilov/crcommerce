@@ -8,9 +8,9 @@ import { FcGoogle } from 'react-icons/fc';
 import { IconContext } from 'react-icons';
 
 // Services
-import AuthService from '../../data/services/auth.service';
-
 import { ButtonsContainer, FormInputContainer, SignInContainer, TitleText } from './sign-in.styles';
+import { connect } from 'react-redux';
+import { credsSignInStart, googleSignInStart } from '../../redux/user/user.actions';
 
 class SignIn extends Component {
   constructor(props) {
@@ -27,13 +27,11 @@ class SignIn extends Component {
   handleSubmit = async (event) => {
     event.preventDefault();
 
+    const { signInWithCredentials } = this.props;
     const { email, password } = this.state;
 
     try {
-      await AuthService.signIn(AuthService.providers.STANDARD, {
-        email,
-        password
-      });
+      signInWithCredentials(email, password);
       this.notificationHandler(`Successfully logged in!`, 'success');
     } catch (error) {
       this.notificationHandler(`Failed to sign in!`, 'error');
@@ -48,7 +46,8 @@ class SignIn extends Component {
   };
 
   handleGoogleSignIn = () => {
-    AuthService.signIn(AuthService.providers.GOOGLE);
+    const { signInWithGoogle } = this.props;
+    signInWithGoogle();
   };
 
   render() {
@@ -77,7 +76,7 @@ class SignIn extends Component {
           />
           <ButtonsContainer>
             <CustomButton type='submit'>Submit Form</CustomButton>
-            <CustomButton onClick={this.handleGoogleSignIn} isGoogleSignIn={true}>
+            <CustomButton type='button' onClick={this.handleGoogleSignIn} isGoogleSignIn={true}>
               <IconContext.Provider
                 value={{
                   style: {
@@ -98,4 +97,9 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn;
+const mapDispatchToProps = (dispatch) => ({
+  signInWithGoogle: () => dispatch(googleSignInStart()),
+  signInWithCredentials: (email, password) => dispatch(credsSignInStart({ email, password }))
+});
+
+export default connect(null, mapDispatchToProps)(SignIn);

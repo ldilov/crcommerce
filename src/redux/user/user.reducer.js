@@ -7,6 +7,19 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         currentUser: action.payload
       };
+    case ACTION_TYPES.GOOGLE_SIGN_IN_SUCCESS:
+    case ACTION_TYPES.CREDENTIALS_SIGN_IN_SUCCESS:
+      return {
+        ...state,
+        currentUser: action.payload,
+        error: null
+      };
+    case ACTION_TYPES.GOOGLE_SIGN_IN_FAILURE:
+    case ACTION_TYPES.CREDENTIALS_SIGN_IN_FAILURE:
+      return {
+        ...state,
+        error: action.payload
+      };
     default:
       return state;
   }

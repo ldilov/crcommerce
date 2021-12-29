@@ -1,4 +1,4 @@
-import { put, takeEvery } from 'redux-saga/effects';
+import { put, takeLatest } from 'redux-saga/effects';
 
 import CollectionsService from '../../data/services/collections.service';
 
@@ -15,5 +15,5 @@ export function* fetchCollectionsAsync() {
 }
 
 export function* fetchCollectionsStart() {
-  yield takeEvery(ACTION_TYPES.FETCH_COLLECTIONS_START, fetchCollectionsAsync);
+  yield takeLatest(ACTION_TYPES.FETCH_COLLECTIONS_START, fetchCollectionsAsync);
 }

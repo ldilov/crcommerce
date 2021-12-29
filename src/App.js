@@ -12,7 +12,7 @@ import { selectCurrentUser } from './redux/user/user.selectors';
 import Header from './components/header/header.component';
 
 // Actions
-import { setCurrentUser } from './redux/user/user.actions';
+import { googleSignInStart } from './redux/user/user.actions';
 
 // Services
 const AuthService = () => import('./data/services/auth.service');
@@ -50,19 +50,19 @@ class App extends Component {
   };
 
   componentWillUnmount() {
-    if (typeof Services.AuthService === 'function') {
-      AuthService().then((module) => {
-        Services.AuthService = module.default;
-        module.default.destroyAuthHandler();
-      });
-    }
+    // if (typeof Services.AuthService === 'function') {
+    //   AuthService().then((module) => {
+    //     Services.AuthService = module.default;
+    //     module.default.destroyAuthHandler();
+    //   });
+    // }
   }
 
   componentDidMount() {
-    AuthService().then((module) => {
-      Services.AuthService = module.default;
-      module.default.setAuthHandler(this.handleSetCurrentUser);
-    });
+    // AuthService().then((module) => {
+    //   Services.AuthService = module.default;
+    //   module.default.setAuthHandler(this.handleSetCurrentUser);
+    // });
   }
 
   render() {
@@ -126,7 +126,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setCurrentUser: (user) => dispatch(setCurrentUser(user))
+  onGoogleSingInStart: () => dispatch(googleSignInStart())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
