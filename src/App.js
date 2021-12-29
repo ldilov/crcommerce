@@ -10,6 +10,7 @@ import { selectCurrentUser } from './redux/user/user.selectors';
 
 // Components
 import Header from './components/header/header.component';
+import { checkUserSession } from './redux/user/user.actions';
 
 // Lazy loaded components
 const CheckoutPage = lazy(() => import('./pages/checkout/checkout.component'));
@@ -21,6 +22,11 @@ const SignInSignUpPage = lazy(() =>
 );
 
 class App extends Component {
+  componentDidMount() {
+    const { checkUserSession } = this.props;
+    checkUserSession();
+  }
+
   render() {
     return (
       <div className='App'>
@@ -81,4 +87,8 @@ const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser
 });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => ({
+  checkUserSession: () => dispatch(checkUserSession())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

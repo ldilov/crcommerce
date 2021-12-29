@@ -27,3 +27,9 @@ export const credsSignInStart = (emailAndPassword) => ({
 export const signOut = () => ({
   type: ACTION_TYPES.SIGN_OUT
 });
+
+export const checkUserSession = () => {
+  return {
+    type: ACTION_TYPES.CHECK_USER_SESSION
+  };
+};

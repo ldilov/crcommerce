@@ -14,8 +14,10 @@ const userReducer = (state = INITIAL_STATE, action) => {
         error: null
       };
     case ACTION_TYPES.SIGN_IN_FAILURE:
+      console.log('HERE');
       return {
         ...state,
+        currentUser: null,
         error: action.payload
       };
     case ACTION_TYPES.SIGN_OUT:

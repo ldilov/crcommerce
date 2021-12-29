@@ -63,11 +63,27 @@ class AuthService {
 
   async signOut() {
     const auth = await load('auth');
-    console.log(auth);
+
     if (auth.currentUser) {
       auth.signOut();
     }
   }
+
+  getCurrentUser = async () => {
+    const auth = await load('auth');
+    const onAuthStateChange = await load('onAuthStateChange');
+
+    return new Promise((resolve, reject) => {
+      const unsubscribe = onAuthStateChange(
+        auth,
+        (user) => {
+          unsubscribe();
+          resolve(user ? new AuthUserDTO(user) : null);
+        },
+        reject
+      );
+    });
+  };
 
   async setAuthHandler(stateSetter) {
     const onAuthStatePromise = load('onAuthStateChange');
