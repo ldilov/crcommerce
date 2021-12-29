@@ -21,20 +21,18 @@ const CartDropdown = (props, ref) => {
   const items = cartItems.map((item) => <CartItemComponent item={item} key={item.id} />);
 
   return (
-    <CartDropdownContainer>
-      <div ref={ref}>
-        <CartItemsContainer>
-          {items.length > 0 ? items : <TextEmptyMessage>Cart is empty</TextEmptyMessage>}
-        </CartItemsContainer>
-        <CustomButton
-          onClick={() => {
-            navigate('/checkout');
-            dispatch(toggleCartHidden());
-          }}
-        >
-          GO TO CHECKOUT
-        </CustomButton>
-      </div>
+    <CartDropdownContainer ref={ref}>
+      <CartItemsContainer>
+        {items.length > 0 ? items : <TextEmptyMessage>Cart is empty</TextEmptyMessage>}
+      </CartItemsContainer>
+      <CustomButton
+        onClick={() => {
+          navigate('/checkout');
+          dispatch(toggleCartHidden());
+        }}
+      >
+        GO TO CHECKOUT
+      </CustomButton>
     </CartDropdownContainer>
   );
 };
