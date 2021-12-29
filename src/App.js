@@ -14,14 +14,6 @@ import Header from './components/header/header.component';
 // Actions
 import { googleSignInStart } from './redux/user/user.actions';
 
-// Services
-const AuthService = () => import('./data/services/auth.service');
-const UserService = () => import('./data/services/user.service');
-const Services = {
-  AuthService,
-  UserService
-};
-
 // Lazy loaded components
 const CheckoutPage = lazy(() => import('./pages/checkout/checkout.component'));
 const HomePage = lazy(() => import('./pages/homepage/homepage.component'));
@@ -32,39 +24,6 @@ const SignInSignUpPage = lazy(() =>
 );
 
 class App extends Component {
-  handleSetCurrentUser = async (payload) => {
-    let user = payload.currentUser;
-
-    try {
-      if (typeof Services.UserService === 'function') {
-        Services.UserService = (await UserService()).default;
-      }
-      await Services.UserService.saveAuthUser(user);
-    } catch (error) {
-      if (error.innerError.snapshot) {
-        user = error.innerError.snapshot.data();
-      }
-    }
-
-    this.props.setCurrentUser(user);
-  };
-
-  componentWillUnmount() {
-    // if (typeof Services.AuthService === 'function') {
-    //   AuthService().then((module) => {
-    //     Services.AuthService = module.default;
-    //     module.default.destroyAuthHandler();
-    //   });
-    // }
-  }
-
-  componentDidMount() {
-    // AuthService().then((module) => {
-    //   Services.AuthService = module.default;
-    //   module.default.setAuthHandler(this.handleSetCurrentUser);
-    // });
-  }
-
   render() {
     return (
       <div className='App'>
