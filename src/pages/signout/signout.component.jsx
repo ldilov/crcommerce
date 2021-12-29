@@ -1,20 +1,23 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-// Services
-import AuthService from '../../data/services/auth.service';
+// Actions
+import { signOut } from '../../redux/user/user.actions';
 
-const SignOut = () => {
+const SignOut = ({ signOut }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    (async () => {
-      await AuthService.signOut();
-      navigate('/');
-    })();
+    signOut();
+    navigate('/');
   }, [navigate]);
 
   return <span>Loading...</span>;
 };
 
-export default SignOut;
+const mapDispatchToProps = (dispatch) => ({
+  signOut: () => dispatch(signOut())
+});
+
+export default connect(null, mapDispatchToProps)(SignOut);

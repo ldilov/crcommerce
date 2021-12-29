@@ -11,9 +11,6 @@ import { selectCurrentUser } from './redux/user/user.selectors';
 // Components
 import Header from './components/header/header.component';
 
-// Actions
-import { googleSignInStart } from './redux/user/user.actions';
-
 // Lazy loaded components
 const CheckoutPage = lazy(() => import('./pages/checkout/checkout.component'));
 const HomePage = lazy(() => import('./pages/homepage/homepage.component'));
@@ -84,8 +81,4 @@ const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onGoogleSingInStart: () => dispatch(googleSignInStart())
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);

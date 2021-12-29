@@ -63,6 +63,7 @@ class AuthService {
 
   async signOut() {
     const auth = await load('auth');
+    console.log(auth);
     if (auth.currentUser) {
       auth.signOut();
     }

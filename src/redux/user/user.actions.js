@@ -9,13 +9,13 @@ export const googleSignInStart = () => ({
   type: ACTION_TYPES.GOOGLE_SIGN_IN_START
 });
 
-export const googleSignInSuccess = (user) => ({
-  type: ACTION_TYPES.GOOGLE_SIGN_IN_SUCCESS,
+export const signInSuccess = (user) => ({
+  type: ACTION_TYPES.SIGN_IN_SUCCESS,
   payload: user
 });
 
-export const googleSignInFailure = (error) => ({
-  type: ACTION_TYPES.GOOGLE_SIGN_IN_FAILURE,
+export const signInFailure = (error) => ({
+  type: ACTION_TYPES.SIGN_IN_FAILURE,
   payload: error
 });
 
@@ -24,12 +24,6 @@ export const credsSignInStart = (emailAndPassword) => ({
   payload: emailAndPassword
 });
 
-export const credsSignInSuccess = (user) => ({
-  type: ACTION_TYPES.CREDENTIALS_SIGN_IN_SUCCESS,
-  payload: user
-});
-
-export const credsSignInFailure = (error) => ({
-  type: ACTION_TYPES.CREDENTIALS_SIGN_IN_FAILURE,
-  payload: error
+export const signOut = () => ({
+  type: ACTION_TYPES.SIGN_OUT
 });

@@ -16,8 +16,6 @@ class SignIn extends Component {
   constructor(props) {
     super(props);
 
-    this.notificationHandler = props.notify;
-
     this.state = {
       email: '',
       password: ''
@@ -30,12 +28,7 @@ class SignIn extends Component {
     const { signInWithCredentials } = this.props;
     const { email, password } = this.state;
 
-    try {
-      signInWithCredentials(email, password);
-      this.notificationHandler(`Successfully logged in!`, 'success');
-    } catch (error) {
-      this.notificationHandler(`Failed to sign in!`, 'error');
-    }
+    signInWithCredentials(email, password);
 
     this.setState({ email: '', password: '' });
   };
