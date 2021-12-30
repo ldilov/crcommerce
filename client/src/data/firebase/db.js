@@ -4,10 +4,11 @@ import {
   doc,
   getDoc,
   getDocs,
+  onSnapshot,
   query,
   setDoc,
-} from 'firebase/firestore/lite';
-import { onSnapshot } from 'firebase/firestore';
+} from 'firebase/firestore';
+
 import FirebaseUserDocumentAlreadyExists
   from '../errors/firebase-userdoc-already-exists';
 import FirebaseDocumentsNotFound from '../errors/firebase-documents-not-found';
