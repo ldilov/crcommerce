@@ -1,5 +1,7 @@
-import styled from 'styled-components';
-import PreviewItem from '../../components/preview-item/preview-item.component';
+import styled from "styled-components";
+import { lazy } from "@loadable/component";
+
+const PreviewItem = lazy(() => import("../../components/preview-item/preview-item.component"));
 
 export const CollectionPageContainer = styled.div`
   display: flex;
