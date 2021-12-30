@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@loadable/component": "^5.15.2",
     "firebase": "^9.6.0",
     "lodash.memoize": "^4.1.2",
     "node-sass": "^6.0.1",
@@ -37,7 +38,7 @@
     "start": "react-scripts start",
     "build": "GENERATE_SOURCEMAP=false react-scripts build && compress-cra",
     "analyze": "webpack-bundle-analyzer build/bundle-stats.json",
-    "winBuild": "set \"GENERATE_SOURCEMAP=false\" &&  eslint src --ext jsx &&  prettier --check \"src\"&& react-scripts build && compress-cra",
+    "winBuild": "set \"GENERATE_SOURCEMAP=false\" && react-scripts build && compress-cra",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint src --ext jsx js"
