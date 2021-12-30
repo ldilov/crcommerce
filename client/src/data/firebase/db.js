@@ -1,6 +1,15 @@
 import { firestore } from './app';
-import { collection, doc, getDoc, getDocs, onSnapshot, query, setDoc } from 'firebase/firestore';
-import FirebaseUserDocumentAlreadyExists from '../errors/firebase-userdoc-already-exists';
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  setDoc,
+} from 'firebase/firestore/lite';
+import { onSnapshot } from 'firebase/firestore';
+import FirebaseUserDocumentAlreadyExists
+  from '../errors/firebase-userdoc-already-exists';
 import FirebaseDocumentsNotFound from '../errors/firebase-documents-not-found';
 import FirebaseUserDocumentNotFound from '../errors/firebase-userdoc-not-found';
 
@@ -11,7 +20,8 @@ export const getUserByDocId = async (id) => {
     return userData;
   }
 
-  throw new FirebaseUserDocumentNotFound(`Document with id ${id} was not found!`, id);
+  throw new FirebaseUserDocumentNotFound(
+      `Document with id ${id} was not found!`, id);
 };
 
 export const getUserCartByUserDocId = async (id) => {
@@ -53,21 +63,21 @@ export const createUserDocument = async (authUser) => {
 
   if (userSnapshot.exists()) {
     throw new FirebaseUserDocumentAlreadyExists(
-      `User with id ${authUser.uid} already exists!`,
-      authUser.uid,
-      userSnapshot
+        `User with id ${authUser.uid} already exists!`,
+        authUser.uid,
+        userSnapshot,
     );
   }
 
   const createdAt = new Date();
-  const { email, displayName } = authUser;
+  const {email, displayName} = authUser;
 
   return {
     displayName,
     email,
     createdAt,
     userRef,
-    setDoc
+    setDoc,
   };
 };
 

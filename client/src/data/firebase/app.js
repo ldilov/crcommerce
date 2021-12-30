@@ -1,6 +1,6 @@
 import firebase from 'firebase/compat/app';
-import { getFirestore } from 'firebase/firestore';
-import { GoogleAuthProvider } from '@firebase/auth';
+import { getFirestore } from 'firebase/firestore/lite';
+import { GoogleAuthProvider } from 'firebase/auth';
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -8,7 +8,7 @@ const config = {
   projectId: process.env.REACT_APP_PROJECT_ID,
   storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
   messagingSenderId: process.env.REACT_APP_SENDER_ID,
-  appId: process.env.REACT_APP_APP_ID
+  appId: process.env.REACT_APP_APP_ID,
 };
 
 const app = firebase.initializeApp(config);
@@ -16,7 +16,7 @@ const app = firebase.initializeApp(config);
 const firestore = getFirestore();
 
 const providers = {
-  auth: new GoogleAuthProvider()
+  auth: new GoogleAuthProvider(),
 };
 
 export { app, providers, firestore, firebase };
