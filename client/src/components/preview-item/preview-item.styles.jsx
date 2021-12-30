@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import CustomButton from '../custom-button/custom-button.component';
+import styled from "styled-components";
+import CustomButton from "../custom-button/custom-button.component";
 
 export const PreviewItemContainer = styled.div`
   width: 22vw;
@@ -17,6 +17,7 @@ export const ImageContainer = styled.div`
   height: 95%;
   background-size: cover;
   background-position: center;
+  background-image: url(${props => props.imageUrl});
   margin-bottom: 5px;
 
   ${PreviewItemContainer}:hover & {

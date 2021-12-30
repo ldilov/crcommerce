@@ -1,13 +1,15 @@
-import { Route, Routes } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { useEffect } from 'react';
+import { Route, Routes } from "react-router-dom";
+import { connect } from "react-redux";
+import { useEffect } from "react";
+import { lazy } from "@loadable/component";
 
 // Actions
-import { fetchCollectionsStart } from '../../redux/shop/shop.actions';
+import { fetchCollectionsStart } from "../../redux/shop/shop.actions";
 
 // Containers
-import OverviewCollectionsContainer from '../../components/overview-collections/overview-collections.container';
-import CollectionPageContainer from '../collection/collection.container';
+const OverviewCollectionsContainer = lazy(
+        () => import("../../components/overview-collections/overview-collections.container"));
+const CollectionPageContainer = lazy(() => import("../collection/collection.container"));
 
 const ShopPage = ({ fetchCollectionsStart }) => {
   useEffect(() => {
@@ -15,12 +17,12 @@ const ShopPage = ({ fetchCollectionsStart }) => {
   }, []);
 
   return (
-    <div className='shop-page'>
-      <Routes>
-        <Route element={<OverviewCollectionsContainer />} exact path={`/`} />
-        <Route element={<CollectionPageContainer />} path={`/:categoryId`} />
-      </Routes>
-    </div>
+          <div className="shop-page">
+            <Routes>
+              <Route element={<OverviewCollectionsContainer />} exact path={`/`} />
+              <Route element={<CollectionPageContainer />} path={`/:categoryId`} />
+            </Routes>
+          </div>
   );
 };
 
